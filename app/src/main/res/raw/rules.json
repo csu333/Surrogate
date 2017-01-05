@@ -1,0 +1,107 @@
+[
+  {
+    "packageName": "mobi.inthepocket.bcmc.bancontact",
+    "enabled":false,
+    "rules": [
+      {
+        "clazz": "com.awl.bfi.ssm.NativeAdapter",
+        "method":"existInstalledRootedApps",
+        "returnType":"java.lang.Integer",
+        "returnValue":"0"
+      },
+      {
+        "clazz":"com.awl.bfi.ssm.NativeAdapter",
+        "method":"existRootedProcessInProcessList",
+        "returnType":"java.lang.Integer",
+        "returnValue":"0"
+      },
+      {
+        "clazz":"com.awl.bfi.ssm.NativeAdapter",
+        "method":"existsSu",
+        "returnType":"java.lang.Integer",
+        "returnValue":"0"
+      },
+      {
+        "clazz":"com.awl.bfi.ssm.NativeAdapter",
+        "method":"lookForSpecificBinaries",
+        "returnType":"java.lang.Integer",
+        "returnValue":"0"
+      },
+      {
+        "clazz":"ʟ",
+        "method":"ˊ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {
+        "clazz":"ʟ",
+        "method":"ˋ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {
+        "clazz":"ʟ",
+        "method":"ˋ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["android.content.Context"]
+      },
+      {
+        "clazz":"ʟ",
+        "method":"ˎ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {
+        "clazz":"Ӏ",
+        "method":"ˊ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {
+        "clazz":"Ӏ",
+        "method":"ˋ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {
+        "clazz":"Ӏ",
+        "method":"ˋ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["android.content.Context"]
+      },
+      {
+        "clazz":"Ӏ",
+        "method":"ˎ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {
+        "clazz":"Ӏ",
+        "method":"ˎ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["android.content.Context"]
+      },
+      {
+        "clazz":"ﺫ",
+        "method":"ˋ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["android.content.Context"]
+      }
+    ]
+  },
+  {"packageName":"com.db.pbc.mybankbelgium",
+    "enabled":false,
+    "rules":[
+      {"clazz":"com.db.pbc.mybank.be.utility.Util",
+        "method":"isRootedVasco",
+        "returnType":"java.lang.Integer",
+        "returnValue":"0",
+        "parametersType": ["android.content.Context"]
+      }
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="net.csu333.surrogate.frontend.MainActivity">
+    <item
+        android:id="@+id/action_share_rule_set"
+        android:title="@string/action_share_rule_set"
+        app:showAsAction="never"
+        app:actionProviderClass=
+            "android.support.v7.widget.ShareActionProvider" />
+    <item
+        android:id="@+id/action_import_default_rules_set"
+        android:title="@string/action_import_default_rules_set"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_import_from_internet"
+        android:icon="@drawable/ic_cloud_download_white_24px"
+        android:orderInCategory="100"
+        android:title="@string/action_import_from_internet"
+        android:enabled="false"
+        app:showAsAction="ifRoom" />
+</menu>
