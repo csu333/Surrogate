@@ -13,6 +13,7 @@ import net.csu333.surrogate.common.Rule;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
 import static de.robv.android.xposed.XC_MethodReplacement.returnConstant;
@@ -89,8 +90,17 @@ public class Surrogate implements IXposedHookLoadPackage {
                 }
 
                 parameterTypesAndCallback[parameterTypesAndCallback.length - 1] = returnMethod;
-                findAndHookMethod(rule.clazz, lpparam.classLoader, rule.method, parameterTypesAndCallback);
-                Log.d(TAG, "Method hooked");
+
+                try {
+                    findAndHookMethod(rule.clazz, lpparam.classLoader, rule.method, parameterTypesAndCallback);
+                    Log.d(TAG, "Method hooked");
+                } catch (NoSuchMethodError ex){
+                    Log.e(TAG, "Method not found.");
+                } catch (XposedHelpers.ClassNotFoundError ex){
+                    Log.e(TAG, "Class not found.");
+                } catch (XposedHelpers.InvocationTargetError ex){
+                    Log.e(TAG, "Invocation error: " + ex.getMessage());
+                }
             }
         }
     }
