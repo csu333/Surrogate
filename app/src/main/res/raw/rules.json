@@ -103,5 +103,94 @@
         "parametersType": ["android.content.Context"]
       }
     ]
+  },
+  {"packageName":"be.bnpparibasfortis.bnppfprepaid",
+    "enabled":false,
+    "rules":[
+      {"clazz":"be.bnpparibasfortis.bnppfprepaid.e.h",
+        "method":"a",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      }
+    ]
+  },
+  {"packageName":"com.nordea.mobiletoken",
+    "enabled":false,
+    "rules":[
+      {"clazz":"o.ˊ",
+        "method":"ʻ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"o.ˊ",
+        "method":"ˊ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"o.ˊ",
+        "method":"ˊ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["String"]
+      },
+      {"clazz":"o.ˊ",
+        "method":"ˊ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["String", "String"]
+      },
+      {"clazz":"o.ˊ",
+        "method":"ˊ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["[B"]
+      },
+      {"clazz":"o.ˊ",
+        "method":"ˋ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"o.ˊ",
+        "method":"ˋ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["String", "String"]
+      }
+    ]
+  },
+  {"packageName":"fi.nordea.mep.npay",
+    "enabled":false,
+    "rules":[
+      {"clazz":"arl",
+        "method":"b",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"arl",
+        "method":"c",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"arl",
+        "method":"d",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"arl",
+        "method":"e",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"arl",
+        "method":"f",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"arl",
+        "method":"g",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      }
+    ]
   }
 ]
