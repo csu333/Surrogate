@@ -6,16 +6,13 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import net.csu333.surrogate.Common;
-import net.csu333.surrogate.frontend.MainActivity;
 import net.csu333.surrogate.backend.RuleBackend;
 import net.csu333.surrogate.common.PackageRules;
 import net.csu333.surrogate.common.Rule;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
-import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
 import static de.robv.android.xposed.XC_MethodReplacement.returnConstant;
@@ -27,7 +24,7 @@ import static de.robv.android.xposed.XC_MethodReplacement.returnConstant;
 public class Surrogate implements IXposedHookLoadPackage {
 
     private static final String TAG = Surrogate.class.getCanonicalName();
-    public static RuleBackend mBackend;
+    private static RuleBackend mBackend;
     private static final String APPLICATION_ID = Common.class.getPackage().getName();
 
 

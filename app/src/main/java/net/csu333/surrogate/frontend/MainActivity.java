@@ -31,13 +31,12 @@ import java.io.PrintWriter;
 public class MainActivity extends AppCompatActivity implements ShareActionProvider.OnShareTargetSelectedListener {
     private RuleBackend mBackend;
     private PackageAdapter mPackageAdapter;
-    ListView mPackageList;
+    private ListView mPackageList;
 
     private static final String TAG = RuleBackend.class.getCanonicalName();
     private static final int ACTIVITY_CREATE = 0;
     private static final int ACTIVITY_EDIT = 1;
-    private ShareActionProvider mShareActionProvider;
-    private Intent shareIntent=new Intent(Intent.ACTION_SEND);
+    private final Intent shareIntent=new Intent(Intent.ACTION_SEND);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,11 +117,11 @@ public class MainActivity extends AppCompatActivity implements ShareActionProvid
         MenuItem item = menu.findItem(R.id.action_share_rule_set);
 
         // Fetch and store ShareActionProvider
-        mShareActionProvider = new ShareActionProvider(this);
-        MenuItemCompat.setActionProvider(item, mShareActionProvider);
-        mShareActionProvider.setOnShareTargetSelectedListener(this);
+        ShareActionProvider shareActionProvider = new ShareActionProvider(this);
+        MenuItemCompat.setActionProvider(item, shareActionProvider);
+        shareActionProvider.setOnShareTargetSelectedListener(this);
         prepareShareIntent();
-        mShareActionProvider.setShareIntent(shareIntent);
+        shareActionProvider.setShareIntent(shareIntent);
 
         return true;
     }
@@ -153,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements ShareActionProvid
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean prepareShareIntent(){
+    private boolean prepareShareIntent(){
         File tmp = new File(new File(getApplicationInfo().dataDir), "export.json");
         try {
             PrintWriter writer = new PrintWriter(tmp, "UTF-8");

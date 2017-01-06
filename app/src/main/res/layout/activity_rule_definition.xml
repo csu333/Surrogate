@@ -24,7 +24,6 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_package_definition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -49,6 +48,7 @@
             android:layout_below="@id/tv_clazz"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:hint="@string/hint_full_class_name"
             android:id="@+id/clazz" />
 
         <TextView
@@ -66,6 +66,7 @@
             android:ems="10"
             android:id="@+id/method"
             android:layout_below="@id/tv_method"
+            android:hint="@string/hint_full_method_name"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -104,6 +105,7 @@
             android:ems="10"
             android:layout_below="@id/tv_return_value"
             android:layout_alignParentLeft="true"
+            android:hint="@string/hint_return_value"
             android:layout_alignParentStart="true"
             android:id="@+id/return_value" />
 

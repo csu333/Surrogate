@@ -60,8 +60,8 @@ public class Helper {
     // that way, you can easily modify the UI thread from here
     private class DownloadTask extends AsyncTask<String, Integer, String> {
 
-        private Context mContext;
-        private RuleBackend mBackend;
+        private final Context mContext;
+        private final RuleBackend mBackend;
 
         DownloadTask(Context context, RuleBackend backend) {
             mContext = context;

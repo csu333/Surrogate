@@ -2,7 +2,6 @@ package net.csu333.surrogate.frontend;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,17 +16,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import net.csu333.surrogate.R;
-import net.csu333.surrogate.backend.PackageAdapter;
 import net.csu333.surrogate.common.PackageRules;
 import net.csu333.surrogate.common.Rule;
 
 public class PackageDefinitionActivity extends AppCompatActivity {
 
-    PackageRules mPackageRules;
-    MenuItemImpl mEnabled;
-    String mOriginalPackageName;
-    int mLastRuleIndex;
-    ArrayAdapter<Rule> mRuleAdapter;
+    private PackageRules mPackageRules;
+    private MenuItemImpl mEnabled;
+    private String mOriginalPackageName;
+    private int mLastRuleIndex;
+    private ArrayAdapter<Rule> mRuleAdapter;
 
     private final static int ACTIVITY_CREATE = 0;
     private final static int ACTIVITY_EDIT = 1;
@@ -45,23 +43,7 @@ public class PackageDefinitionActivity extends AppCompatActivity {
             mPackageRules = new PackageRules();
         }
 
-        /*Button cancel = (Button) findViewById(R.id.cancel);
-        cancel.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });*/
-
         findViewById(R.id.action_save);
-
-        /*Button save = (Button) findViewById(R.id.action_save);
-        save.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,14 +58,14 @@ public class PackageDefinitionActivity extends AppCompatActivity {
         packageName.setText(mPackageRules.packageName);
         mOriginalPackageName = mPackageRules.packageName;
 
-        mRuleAdapter = new ArrayAdapter<Rule>(this, android.R.layout.simple_list_item_1, mPackageRules.rules);
+        mRuleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mPackageRules.rules);
         final ListView ruleList = (ListView) findViewById(R.id.rule_list);
         ruleList.setAdapter(mRuleAdapter);
         ruleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = new Intent(getBaseContext(), RuleDefinitionActivity.class);
-                intent.putExtra("rule", (Parcelable) mPackageRules.rules.get(position));
+                intent.putExtra("rule", mPackageRules.rules.get(position));
                 mLastRuleIndex = position;
                 startActivityForResult(intent, ACTIVITY_EDIT);
             }
@@ -104,7 +86,7 @@ public class PackageDefinitionActivity extends AppCompatActivity {
                     Rule r = mPackageRules.rules.get(mLastRuleIndex);
                     mPackageRules.rules.add(r);
                     Intent intent = new Intent(getBaseContext(), RuleDefinitionActivity.class);
-                    intent.putExtra("rule", (Parcelable) r);
+                    intent.putExtra("rule", r);
                     mLastRuleIndex = mPackageRules.rules.size() - 1;
                     startActivityForResult(intent, ACTIVITY_EDIT);
                 } else if (data.hasExtra("delete")) {

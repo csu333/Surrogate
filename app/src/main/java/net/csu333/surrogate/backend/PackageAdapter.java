@@ -1,11 +1,11 @@
 package net.csu333.surrogate.backend;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import net.csu333.surrogate.R;
 import net.csu333.surrogate.common.PackageRules;
@@ -23,8 +23,9 @@ public class PackageAdapter extends ArrayAdapter<PackageRules> {
 
     // The newView method is used to inflate a new view and return it,
     // you don't bind any data to the view at this point.
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         PackageRules packageRules = getItem(position);
 
@@ -35,8 +36,10 @@ public class PackageAdapter extends ArrayAdapter<PackageRules> {
         // Find fields to populate in inflated template
         TextView packageName = (TextView) convertView.findViewById(R.id.package_name);
 
-        packageName.setEnabled(packageRules.enabled);
-        packageName.setText(packageRules.packageName);
+        if (packageRules != null) {
+            packageName.setEnabled(packageRules.enabled);
+            packageName.setText(packageRules.packageName);
+        }
 
         return convertView;
     }

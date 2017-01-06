@@ -2,6 +2,7 @@ package net.csu333.surrogate.common;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class PackageRules implements Comparable <PackageRules>, Parcelable {
 
     public PackageRules(){}
 
-    protected PackageRules(Parcel in) {
+    private PackageRules(Parcel in) {
         packageName = in.readString();
         enabled = in.readByte() != 0x00;
         if (in.readByte() == 0x01) {
@@ -60,16 +61,14 @@ public class PackageRules implements Comparable <PackageRules>, Parcelable {
     };
 
     @Override
-    public int compareTo(PackageRules pr){
+    public int compareTo(@NonNull PackageRules pr){
         return packageName.compareTo(pr.packageName);
     }
 
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Package Name: ").append(packageName)
-                .append(", Enabled: ").append(enabled)
-                .append(rules);
-        return sb.toString();
+        return "Package Name: " + packageName +
+                ", Enabled: " + enabled +
+                rules;
     }
 }

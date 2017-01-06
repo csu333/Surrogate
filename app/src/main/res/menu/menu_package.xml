@@ -4,14 +4,14 @@
 
     <item android:title="@string/delete"
         android:id="@+id/action_delete"
-        app:showAsAction="withText|always"
+        app:showAsAction="withText|ifRoom"
         android:icon="@android:drawable/ic_menu_delete" />
     <item android:title="@string/enabled"
         android:id="@+id/action_enable"
-        app:showAsAction="withText|always"
+        app:showAsAction="withText|ifRoom"
         android:icon="@drawable/sync" />
     <item android:title="@string/save"
         android:id="@+id/action_save"
-        app:showAsAction="withText|always"
+        app:showAsAction="withText|ifRoom"
         android:icon="@android:drawable/ic_menu_save" />
 </menu>

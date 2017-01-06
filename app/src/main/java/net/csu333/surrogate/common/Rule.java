@@ -24,7 +24,7 @@ public class Rule implements Parcelable {
         this.returnValue = returnValue;
     }
 
-    protected Rule(Parcel in) {
+    Rule(Parcel in) {
         clazz = in.readString();
         method = in.readString();
         returnType = in.readString();

@@ -2,7 +2,6 @@ package net.csu333.surrogate.frontend;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,12 +15,12 @@ import net.csu333.surrogate.common.Rule;
 
 public class RuleDefinitionActivity extends AppCompatActivity {
 
-    Rule mRule;
-    TextView mClassName;
-    TextView mMethodName;
-    Spinner mReturnType;
-    TextView mReturnValue;
-    TextView mParametersType;
+    private Rule mRule;
+    private TextView mClassName;
+    private TextView mMethodName;
+    private Spinner mReturnType;
+    private TextView mReturnValue;
+    private TextView mParametersType;
 
 
     @Override
@@ -102,7 +101,7 @@ public class RuleDefinitionActivity extends AppCompatActivity {
                     mRule.parametersType = null;
                 }
 
-                resultData.putExtra("result", (Parcelable)mRule);
+                resultData.putExtra("result", mRule);
                 setResult(Activity.RESULT_OK, resultData);
                 finish();
                 return true;

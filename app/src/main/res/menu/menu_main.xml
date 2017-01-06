@@ -14,7 +14,6 @@
         android:icon="@drawable/ic_file_download_white_24px"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         android:visible="false"
