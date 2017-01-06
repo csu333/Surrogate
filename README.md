@@ -3,5 +3,5 @@ Surrogate is a Xposed module to replace any method, sending constant instead. If
 
 ## Credits
 * To [rovo89 and all the contributors](https://github.com/rovo89/) for their amazing work on Xposed framework
-* To @Razer2015 for the inspiration and the reverse engineering done on some apps. Most of the rules existing in the default set are from him.
+* To [Razer2015](https://github.com/Razer2015/) for the inspiration and the reverse engineering done on some apps. Most of the rules existing in the default set are from him.
 
