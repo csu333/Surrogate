@@ -44,14 +44,14 @@
             android:inputType="textPersonName"
             android:layout_below="@id/tv_package_name"
             android:ems="10"
-            android:id="@+id/package_name" />
+            android:id="@+id/package_id" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:text="@string/rule_list"
-            android:layout_below="@id/package_name"
+            android:layout_below="@id/package_id"
             android:id="@+id/tv_rule_list" />
 
         <ListView

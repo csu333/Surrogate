@@ -54,7 +54,7 @@ public class PackageDefinitionActivity extends AppCompatActivity {
             }
         });
 
-        EditText packageName = (EditText) findViewById(R.id.package_name);
+        EditText packageName = (EditText) findViewById(R.id.package_id);
         packageName.setText(mPackageRules.packageName);
         mOriginalPackageName = mPackageRules.packageName;
 
@@ -120,7 +120,7 @@ public class PackageDefinitionActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        EditText packageName = (EditText) findViewById(R.id.package_name);
+        EditText packageName = (EditText) findViewById(R.id.package_id);
         Intent resultData = new Intent();
 
         switch (id){

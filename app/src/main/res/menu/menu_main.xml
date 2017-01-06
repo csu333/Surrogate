@@ -9,11 +9,6 @@
         app:actionProviderClass=
             "android.support.v7.widget.ShareActionProvider" />
     <item
-        android:id="@+id/action_import_default_rules_set"
-        android:title="@string/action_import_default_rules_set"
-        android:icon="@drawable/ic_file_download_white_24px"
-        app:showAsAction="ifRoom" />
-    <item
         android:orderInCategory="100"
         android:title="@string/action_settings"
         android:visible="false"
@@ -22,5 +17,10 @@
         android:id="@+id/action_import_from_internet"
         android:icon="@drawable/ic_cloud_download_white_24px"
         android:title="@string/action_import_from_internet"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_import_default_rules_set"
+        android:title="@string/action_import_default_rules_set"
+        android:icon="@drawable/ic_file_download_white_24px"
         app:showAsAction="ifRoom" />
 </menu>

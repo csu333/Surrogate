@@ -1,6 +1,9 @@
 package net.csu333.surrogate.backend;
 
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,8 +22,11 @@ import java.util.HashMap;
 public class RuleBackend {
 
     private static final String TAG = RuleBackend.class.getCanonicalName();
+    private static PackageManager mPackageManager;
     private final SharedPreferences mPreferences;
     private HashMap<String, PackageRules> mRules = new HashMap<>();
+    private HashMap<String, String> mFriendlyNames = new HashMap<>();
+    private HashMap<String, Drawable> mIcons = new HashMap<>();
 
     public static final String RULE_SET_KEY = "RULE_SET";
 
@@ -32,12 +38,19 @@ public class RuleBackend {
         mRules = new Gson().fromJson(mPreferences.getString(RULE_SET_KEY, "[]"), type);
     }
 
+    public void setPackageManager(PackageManager packageManager){
+        mPackageManager = packageManager;
+    }
+
     public int addPackages(Iterable<PackageRules> packageRulesList){
         int packageAdded = 0;
         for (PackageRules pr : packageRulesList){
             if (!mRules.containsKey(pr.packageName)) {
                 mRules.put(pr.packageName, pr);
                 packageAdded++;
+
+                // Enable applications which are installed, disable the others
+                pr.enabled = (getPackageFriendlyName(pr) != null);
             }
         }
 
@@ -64,6 +77,42 @@ public class RuleBackend {
         });
 
         return ret;
+    }
+
+    public String getPackageFriendlyName(PackageRules packageRule){
+        if (mPackageManager != null) {
+            if (!mFriendlyNames.containsKey(packageRule.packageName)) {
+                ApplicationInfo ai = null;
+                try {
+                    ai = mPackageManager.getApplicationInfo(packageRule.packageName, PackageManager.GET_META_DATA);
+                    mFriendlyNames.put(packageRule.packageName, mPackageManager.getApplicationLabel(ai).toString());
+                } catch (PackageManager.NameNotFoundException e) {
+                    mFriendlyNames.put(packageRule.packageName, null);
+                }
+            }
+
+            return mFriendlyNames.get(packageRule.packageName);
+        }
+
+        return null;
+    }
+
+    public Drawable getPackageIcon(PackageRules packageRule){
+        if (mPackageManager != null) {
+            if (!mIcons.containsKey(packageRule.packageName)) {
+                ApplicationInfo ai = null;
+                try {
+                    ai = mPackageManager.getApplicationInfo(packageRule.packageName, PackageManager.GET_META_DATA);
+                    mIcons.put(packageRule.packageName, mPackageManager.getApplicationIcon(ai));
+                } catch (PackageManager.NameNotFoundException e) {
+                    mIcons.put(packageRule.packageName, null);
+                }
+            }
+
+            return mIcons.get(packageRule.packageName);
+        }
+
+        return null;
     }
 
     public String getPackagesAsJson(){

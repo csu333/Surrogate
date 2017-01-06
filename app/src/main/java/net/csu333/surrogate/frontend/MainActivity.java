@@ -48,9 +48,10 @@ public class MainActivity extends AppCompatActivity implements ShareActionProvid
         //noinspection deprecation
         SharedPreferences sharedPreferences = getSharedPreferences(RuleBackend.RULE_SET_KEY, MODE_WORLD_READABLE);
         mBackend = new RuleBackend(sharedPreferences);
+        mBackend.setPackageManager(getPackageManager());
 
         mPackageList = (ListView) findViewById(R.id.package_list);
-        mPackageAdapter = new PackageAdapter(this, R.layout.item_package, mBackend.getPackages());
+        mPackageAdapter = new PackageAdapter(this, R.layout.item_package, mBackend.getPackages(), mBackend);
         mPackageList.setAdapter(mPackageAdapter);
 
         mPackageList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements ShareActionProvid
     }
 
     public void reloadPackageList(){
-        mPackageAdapter = new PackageAdapter(this, R.layout.item_package, mBackend.getPackages());
+        mPackageAdapter = new PackageAdapter(this, R.layout.item_package, mBackend.getPackages(), mBackend);
         mPackageList.setAdapter(mPackageAdapter);
         mPackageAdapter.notifyDataSetInvalidated();
     }

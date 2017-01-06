@@ -39,9 +39,7 @@ public class Helper {
             Type type = new TypeToken<List<PackageRules>>(){}.getType();
             List<PackageRules> array = new Gson().fromJson(isr, type);
 
-            backend.addPackages(array);
-
-            importedPackages = array.size();
+            importedPackages = backend.addPackages(array);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
