@@ -192,5 +192,85 @@
         "returnValue":"false"
       }
     ]
+  },
+  {"packageName":"es.ingdirect.twypcash",
+    "enabled":false,
+    "rules":[
+      {"clazz":"es.ingdirect.commons.utils.SecurityUtils",
+        "method":"checkForBinary",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["String"]
+      },
+      {"clazz":"es.ingdirect.commons.utils.SecurityUtils",
+        "method":"checkForDangerousProps",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"es.ingdirect.commons.utils.SecurityUtils",
+        "method":"checkForRWPaths",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"es.ingdirect.commons.utils.SecurityUtils",
+        "method":"checkSuExists",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"es.ingdirect.commons.utils.SecurityUtils",
+        "method":"detectPotentiallyDangerousApps",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["android.content.Context"]
+      },
+      {"clazz":"es.ingdirect.commons.utils.SecurityUtils",
+        "method":"detectRootCloakingApps",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["android.content.Context"]
+      },
+      {"clazz":"es.ingdirect.commons.utils.SecurityUtils",
+        "method":"detectRootManagementApps",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["android.content.Context"]
+      },
+      {"clazz":"es.ingdirect.commons.utils.SecurityUtils",
+        "method":"detectTestKeys",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"es.ingdirect.commons.utils.SecurityUtils",
+        "method":"isPhoneRooted",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false",
+        "parametersType": ["android.content.Context"]
+      }
+    ]
+  },
+  {"packageName":"au.com.nab.mobile",
+    "enabled":false,
+    "rules":[
+      {"clazz":"au.com.nab.coreSdk.device.DeviceRootUtils",
+        "method":"isRooted",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"au.com.nab.coreSdk.device.DeviceRootUtils",
+        "method":"numberOfRootChecksTriggered",
+        "returnType":"java.lang.Integer",
+        "returnValue":"0"
+      },
+      {"clazz":"com.ca.a.au",
+        "method":"c",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      },
+      {"clazz":"com.visa.cbp.sdk.v2x.storage.database.ˏ",
+        "method":"ˏ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      }
+    ]
   }
 ]
