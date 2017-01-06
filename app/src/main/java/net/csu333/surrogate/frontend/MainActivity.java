@@ -1,7 +1,5 @@
 package net.csu333.surrogate.frontend;
 
-import android.app.Activity;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -27,7 +25,6 @@ import net.csu333.surrogate.common.PackageRules;
 import net.csu333.surrogate.logic.Helper;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -81,9 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 if (data.hasExtra("result")){
                     PackageRules packageRules = data.getParcelableExtra("result");
                     mBackend.addPackage(packageRules);
-                    mPackageAdapter = new PackageAdapter(this, R.layout.item_package, mBackend.getPackages());
-                    mPackageList.setAdapter(mPackageAdapter);
-                    mPackageAdapter.notifyDataSetChanged();
+                    reloadPackageList();
                 }
             } else if (requestCode == ACTIVITY_EDIT) {
                 String originalPackageName = data.getStringExtra("originalPackageName");
@@ -96,19 +91,21 @@ public class MainActivity extends AppCompatActivity {
                         // Package name has changed
                         mBackend.removePackage(originalPackageName);
                         mBackend.addPackage(packageRules);
-                        mPackageAdapter = new PackageAdapter(this, R.layout.item_package, mBackend.getPackages());
-                        mPackageList.setAdapter(mPackageAdapter);
-                        mPackageAdapter.notifyDataSetInvalidated();
+                        reloadPackageList();
                     }
                 } else {
                     // Package has been deleted
                     mBackend.removePackage(originalPackageName);
-                    mPackageAdapter = new PackageAdapter(this, R.layout.item_package, mBackend.getPackages());
-                    mPackageList.setAdapter(mPackageAdapter);
-                    mPackageAdapter.notifyDataSetInvalidated();
+                    reloadPackageList();
                 }
             }
         }
+    }
+
+    public void reloadPackageList(){
+        mPackageAdapter = new PackageAdapter(this, R.layout.item_package, mBackend.getPackages());
+        mPackageList.setAdapter(mPackageAdapter);
+        mPackageAdapter.notifyDataSetInvalidated();
     }
 
     @Override
@@ -133,19 +130,21 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        int importedPackages;
 
         switch (id){
             case R.id.action_share_rule_set:
                 onShareAction();
                 return true;
             case R.id.action_import_default_rules_set:
-                int importedPackages = Helper.importRules(this, mBackend);
+                importedPackages = Helper.importRules(this, mBackend);
                 Snackbar.make(this.findViewById(R.id.package_list), "Imported packages: " + importedPackages, Snackbar.LENGTH_LONG).show();
 
                 // Make sure to reflect the new packages
-                mPackageAdapter = new PackageAdapter(this, R.layout.item_package, mBackend.getPackages());
-                mPackageList.setAdapter(mPackageAdapter);
-                mPackageAdapter.notifyDataSetChanged();
+                reloadPackageList();
+                return true;
+            case R.id.action_import_from_internet:
+                new Helper().importRulesFromInternet(this, mBackend);
                 return true;
             default: break;
 

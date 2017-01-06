@@ -36,12 +36,18 @@ public class RuleBackend {
         mRules = new Gson().fromJson(mPreferences.getString(RULE_SET_KEY, "[]"), type);
     }
 
-    public void addPackages(Iterable<PackageRules> packageRulesList){
+    public int addPackages(Iterable<PackageRules> packageRulesList){
+        int packageAdded = 0;
         for (PackageRules pr : packageRulesList){
-            mRules.put(pr.packageName, pr);
+            if (!mRules.containsKey(pr.packageName)) {
+                mRules.put(pr.packageName, pr);
+                packageAdded++;
+            }
         }
 
         savePreferences();
+
+        return packageAdded;
     }
 
     public void addPackage(PackageRules packageRules){
