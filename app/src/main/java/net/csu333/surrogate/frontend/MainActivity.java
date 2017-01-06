@@ -28,7 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ShareActionProvider.OnShareTargetSelectedListener {
     private RuleBackend mBackend;
     private PackageAdapter mPackageAdapter;
     ListView mPackageList;
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int ACTIVITY_CREATE = 0;
     private static final int ACTIVITY_EDIT = 1;
     private ShareActionProvider mShareActionProvider;
+    private Intent shareIntent=new Intent(Intent.ACTION_SEND);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
         // Fetch and store ShareActionProvider
         mShareActionProvider = new ShareActionProvider(this);
         MenuItemCompat.setActionProvider(item, mShareActionProvider);
-        item.setEnabled(true);
+        mShareActionProvider.setOnShareTargetSelectedListener(this);
+        prepareShareIntent();
+        mShareActionProvider.setShareIntent(shareIntent);
 
         return true;
     }
@@ -133,9 +136,6 @@ public class MainActivity extends AppCompatActivity {
         int importedPackages;
 
         switch (id){
-            case R.id.action_share_rule_set:
-                onShareAction();
-                return true;
             case R.id.action_import_default_rules_set:
                 importedPackages = Helper.importRules(this, mBackend);
                 Snackbar.make(this.findViewById(R.id.package_list), "Imported packages: " + importedPackages, Snackbar.LENGTH_LONG).show();
@@ -153,25 +153,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void onShareAction() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
+    public boolean prepareShareIntent(){
         File tmp = new File(new File(getApplicationInfo().dataDir), "export.json");
         try {
             PrintWriter writer = new PrintWriter(tmp, "UTF-8");
             writer.print(mBackend.getPackagesAsJson());
             writer.close();
 
-            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+tmp.getAbsolutePath()));
-            intent.setType("application/json");
-
-            if (mShareActionProvider != null) {
-                mShareActionProvider.setShareIntent(intent);
-            }
-            startActivity(intent);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+tmp.getAbsolutePath()));
+            shareIntent.setType("application/json");
         } catch (IOException ex) {
             Log.e(TAG, ex.toString());
             Snackbar.make(this.findViewById(R.id.package_list), "Failed exporting rules", Snackbar.LENGTH_LONG).show();
+            return false;
         }
+        return true;
+    }
+
+    @Override
+    public boolean onShareTargetSelected(ShareActionProvider source, Intent intent) {
+        // Force preparation to get last modification (if any)
+        return prepareShareIntent();
     }
 }

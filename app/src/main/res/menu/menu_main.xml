@@ -5,12 +5,13 @@
     <item
         android:id="@+id/action_share_rule_set"
         android:title="@string/action_share_rule_set"
-        app:showAsAction="never"
+        app:showAsAction="ifRoom"
         app:actionProviderClass=
             "android.support.v7.widget.ShareActionProvider" />
     <item
         android:id="@+id/action_import_default_rules_set"
         android:title="@string/action_import_default_rules_set"
+        android:icon="@drawable/ic_file_download_white_24px"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_settings"
