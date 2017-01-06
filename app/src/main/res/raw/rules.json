@@ -270,6 +270,12 @@
         "method":"ˏ",
         "returnType":"java.lang.Boolean",
         "returnValue":"false"
+      },
+      {"clazz":"com.visa.cbp.sdk.v2x.crypto.ˏ",
+        "method":"ˎ",
+        "returnType":"beforeHookedMethod(param)",
+        "returnValue":"param.setResult(null);",
+        "parametersType": ["String"]
       }
     ]
   }

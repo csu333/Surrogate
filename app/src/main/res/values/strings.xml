@@ -27,6 +27,8 @@
         <item>java.lang.Boolean</item>
         <item>java.lang.Integer</item>
         <item>java.lang.String</item>
-        <!-- item>Custom</item -->
+        <item>beforeHookedMethod(param)</item>
+        <item>afterHookedMethod(param)</item>
+        <item>Custom</item>
     </string-array>
 </resources>

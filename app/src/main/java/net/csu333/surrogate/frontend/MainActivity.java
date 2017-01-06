@@ -1,5 +1,6 @@
 package net.csu333.surrogate.frontend;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;

@@ -27,8 +27,6 @@ public class RuleBackend {
     public RuleBackend(SharedPreferences preferences){
         mPreferences  = preferences;
 
-        Log.d(TAG, "New RuleBackend with preferences: " + mPreferences.getString(RULE_SET_KEY, "[]"));
-
         // Load rules from preferences
         Type type = new TypeToken<HashMap<String, PackageRules>>(){}.getType();
         mRules = new Gson().fromJson(mPreferences.getString(RULE_SET_KEY, "[]"), type);

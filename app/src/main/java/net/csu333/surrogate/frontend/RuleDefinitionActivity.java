@@ -68,8 +68,14 @@ public class RuleDefinitionActivity extends AppCompatActivity {
             case "java.lang.String":
                 mReturnType.setSelection(2);
                 break;
-            default:
+            case "beforeHookedMethod(param)":
                 mReturnType.setSelection(3);
+                break;
+            case "afterHookedMethod(param)":
+                mReturnType.setSelection(4);
+                break;
+            default:
+                mReturnType.setSelection(5);
         }
 
     }

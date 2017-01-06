@@ -10,6 +10,7 @@ import net.csu333.surrogate.backend.RuleBackend;
 import net.csu333.surrogate.common.PackageRules;
 import net.csu333.surrogate.common.Rule;
 
+import bsh.Interpreter;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
@@ -54,6 +55,7 @@ public class Surrogate implements IXposedHookLoadPackage {
             Log.d(TAG,"Found enabled package id: " + packageRules.packageName);
 
             for(Rule rule : packageRules.rules){
+                final String returnValue = rule.returnValue;
                 Log.d(TAG, "Processing new rule:");
                 Object[] parameterTypesAndCallback = new Object[1];
                 XC_MethodHook returnMethod;
@@ -85,8 +87,54 @@ public class Surrogate implements IXposedHookLoadPackage {
                     case "java.lang.Boolean":
                         returnMethod = returnConstant(Boolean.parseBoolean(rule.returnValue));
                         break;
+                    case "beforeHookedMethod(param)":
+                        returnMethod = new XC_MethodHook() {
+                            @Override
+                            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                                Interpreter interpreter = new Interpreter();
+                                try {
+                                    interpreter.set("context", this);//set any variable, you can refer to it directly from string
+                                    interpreter.set("param", param);
+                                    interpreter.eval(returnValue);//execute code
+                                }
+                                catch (Exception e){//handle exception
+                                    Log.e(TAG, Log.getStackTraceString(e));
+                                }
+                            }
+                        };
+                        break;
+                    case "afterHookedMethod(param)":
+                        returnMethod = new XC_MethodHook() {
+                            @Override
+                            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                                Interpreter interpreter = new Interpreter();
+                                try {
+                                    interpreter.set("context", this);//set any variable, you can refer to it directly from string
+                                    interpreter.set("param", param);
+                                    interpreter.eval(returnValue);//execute code
+                                }
+                                catch (Exception e){//handle exception
+                                    Log.e(TAG, Log.getStackTraceString(e));
+                                }
+                            }
+                        };
+                        break;
                     default:
-                        returnMethod = returnConstant(rule.returnValue);
+                        Interpreter interpreter = new Interpreter();
+                        try {
+                            interpreter.set("context", this);//set any variable, you can refer to it directly from string
+                            Object ret = interpreter.eval(rule.returnValue);//execute code
+                            if (ret == null) {
+                                Log.e(TAG, "Custom return value returned null");
+                                returnMethod = returnConstant(rule.returnValue);
+                            } else {
+                                returnMethod = returnConstant(ret);
+                            }
+                        }
+                        catch (Exception e){//handle exception
+                            Log.e(TAG, Log.getStackTraceString(e));
+                            returnMethod = returnConstant(rule.returnValue);
+                        }
                 }
 
                 parameterTypesAndCallback[parameterTypesAndCallback.length - 1] = returnMethod;
@@ -95,11 +143,13 @@ public class Surrogate implements IXposedHookLoadPackage {
                     findAndHookMethod(rule.clazz, lpparam.classLoader, rule.method, parameterTypesAndCallback);
                     Log.d(TAG, "Method hooked");
                 } catch (NoSuchMethodError ex){
-                    Log.e(TAG, "Method not found.");
+                    Log.e(TAG, "Method not found: " + rule.method);
                 } catch (XposedHelpers.ClassNotFoundError ex){
-                    Log.e(TAG, "Class not found.");
+                    Log.e(TAG, "Class not found: " + rule.clazz);
                 } catch (XposedHelpers.InvocationTargetError ex){
-                    Log.e(TAG, "Invocation error: " + ex.getMessage());
+                    Log.e(TAG, "Invocation error: " + Log.getStackTraceString(ex));
+                } catch (Exception ex){
+                    Log.e(TAG, Log.getStackTraceString(ex));
                 }
             }
         }
