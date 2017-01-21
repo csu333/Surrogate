@@ -108,7 +108,7 @@ public class PackageDefinitionActivity extends AppCompatActivity {
         mEnabled = (MenuItemImpl) menu.findItem(R.id.action_enable);
 
         if (mPackageRules != null && !mPackageRules.enabled){
-            mEnabled.setIcon(R.drawable.sync_off);
+            mEnabled.setIcon(R.drawable.ic_off);
         }
         return true;
     }
@@ -127,9 +127,9 @@ public class PackageDefinitionActivity extends AppCompatActivity {
             case R.id.action_enable:
                 mPackageRules.enabled = !mPackageRules.enabled;
                 if (mPackageRules.enabled){
-                    mEnabled.setIcon(R.drawable.sync);
+                    mEnabled.setIcon(R.drawable.ic_on);
                 } else {
-                    mEnabled.setIcon(R.drawable.sync_off);
+                    mEnabled.setIcon(R.drawable.ic_off);
                 }
                 return true;
             case R.id.action_save:
