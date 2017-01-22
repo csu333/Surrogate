@@ -16,6 +16,7 @@ Currently supported application are (thanks to Razer2015):
  * [Nordea Pay](https://play.google.com/store/apps/details?id=fi.nordea.mep.npay)
  * [Twyp Cash](https://play.google.com/store/apps/details?id=es.ingdirect.twypcash)
  * [NAB](https://play.google.com/store/apps/details?id=au.com.nab.mobile) (Only with beta version)
+ * [Keytrade Bank](https://play.google.com/store/apps/details?id=be.keytradebank.phone) (tentative)
  
  If you find the application you want to fool in this list, just enable the corresponding set of rule and make sure the application is completely stopped (killed). When you restart it, there should be no complaining about your rooted phone anymore.
  

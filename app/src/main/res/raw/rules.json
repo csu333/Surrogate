@@ -114,6 +114,17 @@
       }
     ]
   },
+  {"packageName":"be.keytradebank.phone",
+    "enabled":false,
+    "rules":[
+      {"clazz":"com.keytrade.swtk.utils.d",
+        "method":"k",
+        "parametersType":["android.content.Context"],
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      }
+    ]
+  },
   {"packageName":"com.nordea.mobiletoken",
     "enabled":false,
     "rules":[
