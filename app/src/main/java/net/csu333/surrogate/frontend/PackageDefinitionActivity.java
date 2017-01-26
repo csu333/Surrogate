@@ -1,8 +1,10 @@
 package net.csu333.surrogate.frontend;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuItemImpl;
@@ -140,10 +142,30 @@ public class PackageDefinitionActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.action_delete:
-                mPackageRules.packageName = packageName.getText().toString();
-                resultData.putExtra("originalPackageName", mOriginalPackageName);
-                setResult(Activity.RESULT_OK, resultData);
-                finish();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder
+                        .setMessage(this.getString(R.string.delete_confirmation))
+                        .setPositiveButton(android.R.string.yes,  new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                Intent deleteIntent = new Intent();
+                                EditText pkgName = (EditText) findViewById(R.id.package_id);
+                                mPackageRules.packageName = pkgName.getText().toString();
+                                deleteIntent.putExtra("originalPackageName", mOriginalPackageName);
+                                setResult(Activity.RESULT_OK, deleteIntent);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+
                 return true;
             default: break;
 
