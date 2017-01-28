@@ -31,6 +31,7 @@ public class PackageDefinitionActivity extends AppCompatActivity {
 
     private final static int ACTIVITY_CREATE = 0;
     private final static int ACTIVITY_EDIT = 1;
+    private final static int ACTIVITY_COPY = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +87,11 @@ public class PackageDefinitionActivity extends AppCompatActivity {
             } else if (requestCode == ACTIVITY_EDIT) {
                 if (data.hasExtra("copy")){
                     Rule r = mPackageRules.rules.get(mLastRuleIndex);
-                    mPackageRules.rules.add(r);
+                    //mPackageRules.rules.add(r);
                     Intent intent = new Intent(getBaseContext(), RuleDefinitionActivity.class);
                     intent.putExtra("rule", r);
                     mLastRuleIndex = mPackageRules.rules.size() - 1;
-                    startActivityForResult(intent, ACTIVITY_EDIT);
+                    startActivityForResult(intent, ACTIVITY_COPY);
                 } else if (data.hasExtra("delete")) {
                     mPackageRules.rules.remove(mLastRuleIndex);
                     mRuleAdapter.notifyDataSetChanged();
@@ -99,6 +100,10 @@ public class PackageDefinitionActivity extends AppCompatActivity {
                     mPackageRules.rules.set(mLastRuleIndex, r);
                     mRuleAdapter.notifyDataSetChanged();
                 }
+            } else if (requestCode == ACTIVITY_COPY){
+                Rule r = data.getParcelableExtra("result");
+                mPackageRules.rules.add(r);
+                mRuleAdapter.notifyDataSetChanged();
             }
         }
     }
