@@ -289,5 +289,15 @@
         "parametersType": ["String"]
       }
     ]
+  },
+  {"packageName":"enbd.mobilebanking",
+    "enabled":false,
+    "rules":[
+      {"clazz":"com.gemalto.android.root.internal.b",
+        "method":"a",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
+      }
+    ]
   }
 ]
