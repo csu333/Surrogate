@@ -297,6 +297,11 @@
         "method":"a",
         "returnType":"java.lang.Boolean",
         "returnValue":"false"
+      },
+      {"clazz":"o.ʺ",
+        "method":"ˏ",
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
       }
     ]
   }
