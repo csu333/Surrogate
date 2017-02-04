@@ -309,22 +309,5 @@
         "returnValue":"false"
       }
     ]
-  },
-  {"packageName":"com.starfinanz.smob.android.sbanking",
-    "enabled":false,
-    "rules":[
-      {"clazz":"defpackage.bkc",
-        "method":"b",
-        "returnType":"beforeHookedMethod(param)",
-        "returnValue":"this.b = false",
-        "parametersType": ["String"]
-      },
-      {"clazz":"defpackage.bkc",
-        "method":"b",
-        "returnType":"afterHookedMethod(param)",
-        "returnValue":"this.b = false",
-        "parametersType": ["String"]
-      }
-    ]
   }
 ]
