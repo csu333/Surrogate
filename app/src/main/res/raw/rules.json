@@ -324,5 +324,20 @@
         "returnValue":"param.setResult(null);"
      }
     ]
+  },
+  {"packageName":"com.starfinanz.smob.android.sbanking",
+    "enabled":false,
+    "rules":[
+      {"clazz":"com.starfinanz.smob.android.sbanking.SparkassePlusPhoneApplication",
+        "method":"onCreate",
+        "returnType":"afterHookedMethod(param)",
+        "returnValue":"param.thisObject.apt \u003d new iiijiililijli(param.thisObject) {\n    final com.starfinanz.smob.android.sbanking.SparkassePlusPhoneApplication ijljllljjjjii;\n    public final iiijiililijli(com.starfinanz.smob.android.sbanking.SparkassePlusPhoneApplication r1) {\n        ijljllljjjjii \u003d r1;\n    }\n    public final void ijljllljjjjii() {\n        Ijljjilj.ijlljilj(this.ijljllljjjjii);\n    }\n    public final boolean iiililiiiilji() {\n        return true;\n    }\n    public final String iillijlijillj() {\n        return Ijljjilj.ijjljllj();\n    }\n    public final boolean iiijjjjjillji() {\n        return true;\n    }\n};\nandroid.util.Log.d(\"csu333\", param.thisObject.apt.toString());"
+      },
+      {"clazz":"iilillllljlii",
+        "method":"iiililiiiilji",
+        "returnType":"beforeHookedMethod(param)",
+        "returnValue":"param.setResult(null);"
+      }
+    ]
   }
 ]
