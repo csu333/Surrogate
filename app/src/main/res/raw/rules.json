@@ -302,6 +302,11 @@
         "method":"ˏ",
         "returnType":"java.lang.Boolean",
         "returnValue":"false"
+      },
+      {"clazz":"o.PF",
+        "method":"ʾ",
+        "returnType":"java.lang.String",
+        "returnValue":"false"
       }
     ]
   }
