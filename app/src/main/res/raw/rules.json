@@ -165,7 +165,7 @@
         "method":"ˋ",
         "returnType":"java.lang.Boolean",
         "returnValue":"false",
-        "parametersType": ["String", "String"]
+        "parametersType": ["java.lang.String", "java.lang.String"]
       }
     ]
   },
@@ -211,7 +211,7 @@
         "method":"checkForBinary",
         "returnType":"java.lang.Boolean",
         "returnValue":"false",
-        "parametersType": ["String"]
+        "parametersType": ["java.lang.String"]
       },
       {"clazz":"es.ingdirect.commons.utils.SecurityUtils",
         "method":"checkForDangerousProps",
@@ -286,7 +286,7 @@
         "method":"ˎ",
         "returnType":"beforeHookedMethod(param)",
         "returnValue":"param.setResult(null);",
-        "parametersType": ["String"]
+        "parametersType": ["java.lang.String"]
       }
     ]
   },
