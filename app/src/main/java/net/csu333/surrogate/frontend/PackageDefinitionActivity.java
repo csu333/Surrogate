@@ -3,6 +3,8 @@ package net.csu333.surrogate.frontend;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,11 +17,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import net.csu333.surrogate.R;
 import net.csu333.surrogate.common.PackageRules;
 import net.csu333.surrogate.common.Rule;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PackageDefinitionActivity extends AppCompatActivity {
 
@@ -57,7 +63,7 @@ public class PackageDefinitionActivity extends AppCompatActivity {
             }
         });
 
-        EditText packageName = (EditText) findViewById(R.id.package_id);
+        final EditText packageName = (EditText) findViewById(R.id.package_id);
         packageName.setText(mPackageRules.packageName);
         mOriginalPackageName = mPackageRules.packageName;
 
@@ -73,6 +79,38 @@ public class PackageDefinitionActivity extends AppCompatActivity {
                 startActivityForResult(intent, ACTIVITY_EDIT);
             }
         });
+
+        ImageButton searchPackage = (ImageButton) findViewById(R.id.search_package);
+        searchPackage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                PackageManager pm = getPackageManager();
+                final List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+                final String[] packageDesc = new String[packages.size()];
+
+                for (int i = 0 ; i < packages.size() ; i++){
+                    packageDesc[i] = pm.getApplicationLabel(packages.get(i)) + " (" + packages.get(i).packageName + ")";
+                }
+
+                AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(PackageDefinitionActivity.this);
+
+                alertdialogbuilder.setTitle(R.string.installed_applications);
+
+                alertdialogbuilder.setItems(packageDesc, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String selectedText = packages.get(which).packageName;
+
+                        packageName.setText(selectedText);
+                    }
+                });
+
+                AlertDialog dialog = alertdialogbuilder.create();
+                dialog.show();
+            }
+        });
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode,

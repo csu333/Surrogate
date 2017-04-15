@@ -22,6 +22,7 @@
     <string name="hint_full_class_name">Give the full class name to hook</string>
     <string name="hint_full_method_name">Give the full method name to hook</string>
     <string name="hint_return_value">Give the value to return (not checked!)</string>
+    <string name="installed_applications">Installed applications</string>
 
 
     <string-array name="array_return_type">
@@ -31,5 +32,6 @@
         <item>beforeHookedMethod(param)</item>
         <item>afterHookedMethod(param)</item>
         <item>Custom</item>
+        <item>Constructor</item>
     </string-array>
 </resources>

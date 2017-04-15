@@ -1,5 +1,6 @@
 package net.csu333.surrogate.logic;
 
+import static de.robv.android.xposed.XposedHelpers.findAndHookConstructor;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 
 import android.os.StrictMode;
@@ -69,7 +70,11 @@ public class Surrogate implements IXposedHookLoadPackage {
                         // Convert parameters type from Strings stored in DB to their actual type
                 if (rule.parametersType != null){
                     // Keep last place for return method
-                    parameterTypesAndCallback = new Object[rule.parametersType.length + 1];
+                    if (rule.returnType.equals("Constructor")){
+                        parameterTypesAndCallback = new Object[rule.parametersType.length];
+                    } else {
+                        parameterTypesAndCallback = new Object[rule.parametersType.length + 1];
+                    }
                     int i = 0;
                     for (String type : rule.parametersType){
                         parameterTypesAndCallback[i++] = Class.forName(type);
@@ -119,6 +124,9 @@ public class Surrogate implements IXposedHookLoadPackage {
                             }
                         };
                         break;
+                    case "Constructor":
+                        returnMethod = null;
+                        break;
                     default:
                         Interpreter interpreter = new Interpreter();
                         try {
@@ -137,11 +145,16 @@ public class Surrogate implements IXposedHookLoadPackage {
                         }
                 }
 
-                parameterTypesAndCallback[parameterTypesAndCallback.length - 1] = returnMethod;
-
                 try {
-                    findAndHookMethod(rule.clazz, lpparam.classLoader, rule.method, parameterTypesAndCallback);
-                    Log.d(TAG, "Method hooked");
+                    // Detect if we want to replace a constructor or a method
+                    if (rule.returnType.equals("Constructor")) {
+                        findAndHookConstructor(rule.clazz, lpparam.classLoader, parameterTypesAndCallback);
+                        Log.d(TAG, "Constructor hooked");
+                    } else {
+                        parameterTypesAndCallback[parameterTypesAndCallback.length - 1] = returnMethod;
+                        findAndHookMethod(rule.clazz, lpparam.classLoader, rule.method, parameterTypesAndCallback);
+                        Log.d(TAG, "Method hooked");
+                    }
                 } catch (NoSuchMethodError ex){
                     Log.e(TAG, "Method not found: " + rule.method);
                 } catch (XposedHelpers.ClassNotFoundError ex){
