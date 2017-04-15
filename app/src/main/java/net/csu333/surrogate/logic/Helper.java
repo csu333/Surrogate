@@ -33,6 +33,11 @@ public class Helper {
 
     public static int importRules(Context context, RuleBackend backend){
         InputStream is = context.getResources().openRawResource(R.raw.rules);
+
+        return importRules(context, backend, is);
+    }
+
+    public static int importRules(Context context, RuleBackend backend, InputStream is){
         int importedPackages = 0;
         try {
             Reader isr = new InputStreamReader(is, "UTF-8");
@@ -42,6 +47,8 @@ public class Helper {
             importedPackages = backend.addPackages(array);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+        } catch (Exception ex){
+            Log.e(TAG, ex.getMessage());
         }
 
         return importedPackages;

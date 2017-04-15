@@ -4,6 +4,7 @@
     <string name="action_import_default_rules_set">Import Default Rules</string>
     <string name="action_share_rule_set">Share Rules</string>
     <string name="action_import_from_internet">Download Rules</string>
+    <string name="action_import_locally">Import Local Rules File</string>
 
     <!-- Strings related to Settings -->
     <string name="rule_clazz">Full class name</string>

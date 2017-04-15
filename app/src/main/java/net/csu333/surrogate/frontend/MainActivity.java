@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v7.widget.ShareActionProvider;
 
+import com.nononsenseapps.filepicker.FilePickerActivity;
+import com.nononsenseapps.filepicker.Utils;
+
 import net.csu333.surrogate.R;
 import net.csu333.surrogate.backend.PackageAdapter;
 import net.csu333.surrogate.backend.RuleBackend;
@@ -25,8 +29,11 @@ import net.csu333.surrogate.common.PackageRules;
 import net.csu333.surrogate.logic.Helper;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ShareActionProvider.OnShareTargetSelectedListener {
     private RuleBackend mBackend;
@@ -36,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements ShareActionProvid
     private static final String TAG = RuleBackend.class.getCanonicalName();
     private static final int ACTIVITY_CREATE = 0;
     private static final int ACTIVITY_EDIT = 1;
+    private static final int ACTIVITY_FILE = 2;
     private final Intent shareIntent=new Intent(Intent.ACTION_SEND);
 
     @Override
@@ -99,6 +107,25 @@ public class MainActivity extends AppCompatActivity implements ShareActionProvid
                     mBackend.removePackage(originalPackageName);
                     reloadPackageList();
                 }
+            } else if (requestCode == ACTIVITY_FILE){
+                List<Uri> files = Utils.getSelectedFilesFromResult(data);
+                if (files.size() > 0){
+                    String filePath = files.get(0).getPath();
+                    if (filePath.startsWith("/root")){
+                        filePath = filePath.substring("/root".length());
+                    }
+                    File f = new File(filePath);
+                    try {
+                        FileInputStream fis = new FileInputStream(f);
+                        int importedPackages = Helper.importRules(this, mBackend, fis);
+                        Snackbar.make(this.findViewById(R.id.package_list), "Imported packages: " + importedPackages, Snackbar.LENGTH_LONG).show();
+
+                        // Make sure to reflect the new packages
+                        reloadPackageList();
+                    } catch (FileNotFoundException ex){
+                        Snackbar.make(this.findViewById(R.id.package_list), "File not found", Snackbar.LENGTH_LONG).show();
+                    }
+                }
             }
         }
     }
@@ -146,11 +173,34 @@ public class MainActivity extends AppCompatActivity implements ShareActionProvid
             case R.id.action_import_from_internet:
                 new Helper().importRulesFromInternet(this, mBackend);
                 return true;
+            case R.id.action_import_locally:
+                importLocalFile();
+                return true;
             default: break;
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void importLocalFile() {
+        // This always works
+        Intent i = new Intent(this, FilePickerActivity.class);
+        // This works if you defined the intent filter
+        // Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+
+        // Set these depending on your use case. These are the defaults.
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, false);
+        i.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
+
+        // Configure initial directory by specifying a String.
+        // You could specify a String like "/storage/emulated/0/", but that can
+        // dangerous. Always use Android's API calls to get paths to the SD-card or
+        // internal memory.
+        i.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
+
+        startActivityForResult(i, ACTIVITY_FILE);
     }
 
     private boolean prepareShareIntent(){

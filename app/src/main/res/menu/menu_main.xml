@@ -23,4 +23,10 @@
         android:title="@string/action_import_default_rules_set"
         android:icon="@drawable/ic_file_download_white_24px"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_import_locally"
+        android:title="@string/action_import_locally"
+        android:icon="@drawable/ic_sd_card_white_24dp"
+        app:showAsAction="ifRoom" />
 </menu>
