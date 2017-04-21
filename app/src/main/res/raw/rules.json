@@ -122,6 +122,12 @@
         "parametersType":["android.content.Context"],
         "returnType":"java.lang.Boolean",
         "returnValue":"false"
+      },
+      {"clazz":"com.keytrade.swtk.utils.d",
+        "method":"j",
+        "parametersType":["android.content.Context"],
+        "returnType":"java.lang.Boolean",
+        "returnValue":"false"
       }
     ]
   },
